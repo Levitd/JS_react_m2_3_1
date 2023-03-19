@@ -21,24 +21,25 @@ const CounterList = () => {
     }
 
     const handleIncrement = (id) => {
-        counters[counters.findIndex(el => el.id === id)]['value'] += 1;
-        /*
-        1.странное поведение... Если обновить  setCounters(counters), то не обновляется, а через новый массив работает....
-        Посмютрю потом, как можно было по другому, или как нужно было по другому
-
-        const newCounters = counters.concat();
+        const newCounters = counters.map((el) => {
+            if (el.id === id) {
+                return { ...el, value: el.value + 1 };
+            } else {
+                return el;
+            }
+        });
         setCounters(newCounters);
 
-        2.Нашел еще вариант... так наверное правильнее...
-        */
-        setCounters((prev) => [...prev]);
     };
     const handleDecrement = (id) => {
-        counters[counters.findIndex(el => el.id === id)]['value'] -= 1;
-        // const newCounters = counters.concat();
-        // setCounters(newCounters);
-        //counters[id].value -= 1;
-        setCounters((prev) => [...prev]);
+        const newCounters = counters.map((el) => {
+            if (el.id === id) {
+                return { ...el, value: el.value - 1 };
+            } else {
+                return el;
+            }
+        });
+        setCounters(newCounters);
     };
 
     return <>
